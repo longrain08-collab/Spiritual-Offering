@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eef3f9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="영적예물">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>영적예물</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23dfe8f4'/%3E%3Cpath d='M28 12h8v16h16v8H36v18h-8V36H12v-8h16z' fill='%23b8934f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef3f9; --card:#ffffff; --ink:#2f3b52; --sub:#7a879c; --line:#dde5f0;
+  --sky:#dbe7f6; --sky-d:#5f83b3; --lav:#e8e4f4; --gold:#b8934f; --gold-l:#f6eedb; --rose:#c46b6b;
+  --serif:'Nanum Myeongjo','Noto Serif KR',serif; --sans:'Noto Sans KR',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1c2333; --card:#262e42; --ink:#e7ecf5; --sub:#9aa7be; --line:#374158; --sky:#33415f; --sky-d:#9dbbe6; --lav:#3a3656; --gold:#d9b46c; --gold-l:#3b3527; --rose:#e39494;}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+body{min-height:100vh;background:linear-gradient(180deg,var(--sky) 0,var(--bg) 220px) no-repeat var(--bg)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sky-d);outline-offset:2px}
+.app{max-width:520px;margin:0 auto;padding:16px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 14px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--serif);font-weight:800;font-size:19px}
+.brand svg{width:22px;height:22px;fill:var(--gold)}
+.icons{display:flex;gap:8px}
+.ib{height:44px;padding:0 14px;border-radius:22px;background:var(--card);border:1px solid var(--line);font-size:14px;font-weight:500}
+.dater{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:8px}
+.nav{width:52px;height:52px;border-radius:18px;background:var(--sky);font-size:22px;color:var(--sky-d)}
+.dmid{flex:1;text-align:center;position:relative;padding:4px}
+.dmid .d{font-family:var(--serif);font-size:22px;font-weight:800}
+.dmid .w{font-size:13px;color:var(--sub);margin-top:2px}
+.dmid input{position:absolute;inset:0;opacity:0;width:100%;height:100%}
+.today{display:block;margin:10px auto 0;height:36px;padding:0 16px;border-radius:18px;background:var(--gold-l);color:var(--gold);font-weight:700;font-size:13px}
+.today[hidden]{display:none}
+.sum{margin:16px 2px 10px;font-size:14px;color:var(--sub)}
+.item{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px 12px 12px 18px;margin-bottom:10px}
+.item .nm{flex:1;min-width:0}
+.item .nm b{display:block;font-size:17px;font-weight:700;word-break:keep-all}
+.item .nm small{color:var(--sub);font-size:12px}
+.item.rosary{background:linear-gradient(135deg,var(--card),var(--lav))}
+.ctl{display:flex;align-items:center;gap:6px}
+.pm{width:52px;height:52px;border-radius:50%;font-size:26px;font-weight:500;display:grid;place-items:center;transition:transform .1s}
+.pm:active{transform:scale(.9)}
+.plus{background:var(--sky-d);color:#fff}
+.minus{background:var(--sky);color:var(--sky-d)}
+.minus:disabled{opacity:.4}
+.cnt{min-width:46px;text-align:center;font-family:var(--serif);font-size:26px;font-weight:800}
+.cnt.z{color:var(--sub);font-weight:700}
+.overlay{position:fixed;inset:0;background:rgba(30,40,60,.45);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.overlay.on{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:520px;max-height:88vh;overflow:auto;border-radius:28px 28px 0 0;padding:22px 18px calc(24px + env(safe-area-inset-bottom,0px));animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:.5}}
+@media (prefers-reduced-motion:reduce){.sheet{animation:none}}
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sh h2{margin:0;font-family:var(--serif);font-size:21px}
+.x{width:44px;height:44px;border-radius:50%;background:var(--card);font-size:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{height:44px;padding:0 16px;border-radius:22px;background:var(--card);border:1px solid var(--line);font-weight:500}
+.chip.on{background:var(--sky-d);border-color:var(--sky-d);color:#fff}
+.range{display:flex;gap:8px;align-items:center;margin-bottom:14px}
+.range input,.field{flex:1;min-width:0;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:0 12px;font:inherit}
+.rl{text-align:center;font-size:13px;color:var(--sub);margin:-4px 0 12px}
+.row{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:16px;padding:14px 18px;margin-bottom:8px;border:1px solid var(--line)}
+.row b{font-family:var(--serif);font-size:22px}
+.row span small{color:var(--sub);margin-left:4px}
+.hint{font-size:13px;color:var(--sub);margin:0 0 12px;line-height:1.5}
+.crow{display:flex;gap:8px;margin-bottom:8px}
+.del{width:48px;height:48px;border-radius:14px;background:var(--card);border:1px solid var(--line);color:var(--rose);font-size:14px;font-weight:700}
+.add{width:100%;height:52px;border-radius:16px;background:var(--sky-d);color:#fff;font-weight:700;margin-top:4px}
+.add:disabled{opacity:.4}
+.base{padding:12px 14px;border-radius:14px;background:var(--card);border:1px dashed var(--line);color:var(--sub);font-size:13px;line-height:1.7;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand"><svg viewBox="0 0 64 64"><path d="M28 6h8v18h18v8H36v26h-8V32H10v-8h18z"/></svg>영적예물</div>
+    <div class="icons">
+      <button class="ib" id="btnStats">통계</button>
+      <button class="ib" id="btnSet">항목 관리</button>
+    </div>
+  </div>
+
+  <div class="dater">
+    <button class="nav" id="prev" aria-label="이전 날">‹</button>
+    <div class="dmid">
+      <div class="d" id="dTxt"></div><div class="w" id="wTxt"></div>
+      <input type="date" id="dPick" aria-label="날짜 선택">
+    </div>
+    <button class="nav" id="next" aria-label="다음 날">›</button>
+  </div>
+  <button class="today" id="goToday" hidden>오늘로 돌아가기</button>
+
+  <div class="sum" id="daySum"></div>
+  <div id="list"></div>
+</div>
+
+<div class="overlay" id="ovStats"><div class="sheet" role="dialog" aria-label="통계">
+  <div class="sh"><h2>기간별 통계</h2><button class="x" data-close aria-label="닫기">✕</button></div>
+  <div class="chips" id="chips"></div>
+  <div class="range">
+    <input type="date" id="sFrom" aria-label="시작일"><span>~</span><input type="date" id="sTo" aria-label="종료일">
+  </div>
+  <div class="rl" id="rLbl"></div>
+  <div id="stList"></div>
+</div></div>
+
+<div class="overlay" id="ovSet"><div class="sheet" role="dialog" aria-label="항목 관리">
+  <div class="sh"><h2>항목 관리</h2><button class="x" data-close aria-label="닫기">✕</button></div>
+  <p class="hint">나만의 영적예물 항목을 최대 3개까지 추가할 수 있어요. 이름은 입력하면 바로 저장됩니다.</p>
+  <div id="cList"></div>
+  <button class="add" id="addC">항목 추가</button>
+  <div class="base">기본 항목: 사제를 위한 기도 · 미사영성체 · 주모송 · 묵주기도(5단 단위) · 화살기도 · 선행<br>항목을 삭제하면 목록과 통계에서 사라지고, 같은 항목을 다시 만들어도 이전 기록은 복구되지 않아요.</div>
+</div></div>
+
+<script>
+(function(){
+const KEY='spiritual-offerings-v1';
+const BASE=[
+ {id:'p1',name:'사제를 위한 기도',step:1},
+ {id:'p2',name:'미사영성체',step:1},
+ {id:'p3',name:'주모송',step:1},
+ {id:'p4',name:'묵주기도',step:5,unit:'단',rosary:true},
+ {id:'p5',name:'화살기도',step:1},
+ {id:'p6',name:'선행',step:1}
+];
+const WD=['일','월','화','수','목','금','토'];
+let mem=null;
+function load(){
+  try{const r=localStorage.getItem(KEY);if(r){const d=JSON.parse(r);return {custom:d.custom||[],logs:d.logs||{}}}}catch(e){}
+  return mem||{custom:[],logs:{}};
+}
+let db=load();
+function save(){mem=db;try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+const $=s=>document.querySelector(s);
+const pad=n=>String(n).padStart(2,'0');
+const fmt=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const todayStr=()=>fmt(new Date());
+const items=()=>BASE.concat(db.custom.map(c=>({id:c.id,name:c.name||'새 항목',step:1})));
+let cur=todayStr();
+
+function get(date,id){return (db.logs[date]&&db.logs[date][id])||0}
+function setVal(date,id,v){
+  v=Math.max(0,v);
+  if(!db.logs[date])db.logs[date]={};
+  if(v===0)delete db.logs[date][id];else db.logs[date][id]=v;
+  if(!Object.keys(db.logs[date]).length)delete db.logs[date];
+  save();
+}
+function render(){
+  const d=parse(cur);
+  $('#dTxt').textContent=d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';
+  $('#wTxt').textContent=WD[d.getDay()]+'요일'+(cur===todayStr()?' · 오늘':'');
+  $('#dPick').value=cur;
+  $('#goToday').hidden=cur===todayStr();
+  const its=items();let tot=0,kinds=0;
+  const box=$('#list');box.innerHTML='';
+  its.forEach(it=>{
+    const v=get(cur,it.id);tot+=v;if(v)kinds++;
+    const el=document.createElement('div');el.className='item'+(it.rosary?' rosary':'');
+    const nm=document.createElement('div');nm.className='nm';
+    const b=document.createElement('b');b.textContent=it.name;nm.appendChild(b);
+    if(it.rosary){const s=document.createElement('small');s.textContent='5단 단위로 기록해요';nm.appendChild(s)}
+    const ctl=document.createElement('div');ctl.className='ctl';
+    const m=document.createElement('button');m.className='pm minus';m.textContent='−';m.disabled=v<=0;m.setAttribute('aria-label',it.name+' 줄이기');
+    const c=document.createElement('div');c.className='cnt'+(v?'':' z');c.textContent=v;c.setAttribute('aria-live','polite');
+    const p=document.createElement('button');p.className='pm plus';p.textContent='+';p.setAttribute('aria-label',it.name+' 늘리기');
+    m.onclick=()=>{setVal(cur,it.id,get(cur,it.id)-it.step);render()};
+    p.onclick=()=>{setVal(cur,it.id,get(cur,it.id)+it.step);render()};
+    ctl.append(m,c,p);el.append(nm,ctl);box.appendChild(el);
+  });
+  $('#daySum').textContent=kinds?('이날 '+kinds+'가지 항목을 바쳤어요'):'아직 기록이 없어요. + 버튼으로 시작해 보세요.';
+}
+function shift(n){const d=parse(cur);d.setDate(d.getDate()+n);cur=fmt(d);render()}
+$('#prev').onclick=()=>shift(-1);
+$('#next').onclick=()=>shift(1);
+$('#goToday').onclick=()=>{cur=todayStr();render()};
+$('#dPick').onchange=e=>{if(e.target.value){cur=e.target.value;render()}};
+
+/* overlays */
+function open(id){$(id).classList.add('on')}
+function closeAll(){document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('on'));render()}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeAll);
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeAll()}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+
+/* stats */
+let preset='week';
+const PRE=[['week','이번 주'],['month','이번 달'],['all','전체'],['custom','직접 선택']];
+function range(){
+  const now=new Date(),t=fmt(now);
+  if(preset==='week'){const s=new Date(now);s.setDate(s.getDate()-s.getDay());const e=new Date(s);e.setDate(e.getDate()+6);return [fmt(s),fmt(e)]}
+  if(preset==='month')return [fmt(new Date(now.getFullYear(),now.getMonth(),1)),fmt(new Date(now.getFullYear(),now.getMonth()+1,0))];
+  if(preset==='all'){const ks=Object.keys(db.logs).sort();return ks.length?[ks[0],ks[ks.length-1]]:[t,t]}
+  return [$('#sFrom').value||t,$('#sTo').value||t];
+}
+function stats(){
+  const ch=$('#chips');ch.innerHTML='';
+  PRE.forEach(([k,l])=>{const b=document.createElement('button');b.className='chip'+(preset===k?' on':'');b.textContent=l;
+    b.onclick=()=>{if(k==='custom'&&preset!=='custom'){const r=range();$('#sFrom').value=r[0];$('#sTo').value=r[1]}preset=k;stats()};ch.appendChild(b)});
+  let [a,z]=range();if(a>z)[a,z]=[z,a];
+  if(preset!=='custom'){$('#sFrom').value=a;$('#sTo').value=z}
+  const tot={};let days=0;
+  Object.keys(db.logs).forEach(d=>{if(d>=a&&d<=z){days++;for(const id in db.logs[d])tot[id]=(tot[id]||0)+db.logs[d][id]}});
+  $('#rLbl').textContent=a.replace(/-/g,'.')+' ~ '+z.replace(/-/g,'.')+' · 기록한 날 '+days+'일';
+  const l=$('#stList');l.innerHTML='';
+  items().forEach(it=>{
+    const r=document.createElement('div');r.className='row';
+    const n=document.createElement('span');n.textContent=it.name;
+    const v=document.createElement('span');const bb=document.createElement('b');bb.textContent=(tot[it.id]||0).toLocaleString();v.appendChild(bb);
+    if(it.unit){const s=document.createElement('small');s.textContent=it.unit;v.appendChild(s)}
+    r.append(n,v);l.appendChild(r);
+  });
+}
+$('#btnStats').onclick=()=>{stats();open('#ovStats')};
+['#sFrom','#sTo'].forEach(s=>$(s).onchange=()=>{preset='custom';stats()});
+
+/* settings */
+function settings(){
+  const l=$('#cList');l.innerHTML='';
+  db.custom.forEach(c=>{
+    const r=document.createElement('div');r.className='crow';
+    const i=document.createElement('input');i.className='field';i.value=c.name;i.maxLength=16;i.placeholder='항목 이름';i.setAttribute('aria-label','항목 이름');
+    i.oninput=()=>{c.name=i.value.trim();save()};
+    const d=document.createElement('button');d.className='del';d.textContent='삭제';
+    d.onclick=()=>{if(confirm('“'+(c.name||'새 항목')+'” 항목과 모든 기록을 삭제할까요?')){
+      db.custom=db.custom.filter(x=>x.id!==c.id);
+      for(const k in db.logs){delete db.logs[k][c.id];if(!Object.keys(db.logs[k]).length)delete db.logs[k]}
+      save();settings()}};
+    r.append(i,d);l.appendChild(r);
+  });
+  $('#addC').disabled=db.custom.length>=3;
+  $('#addC').textContent=db.custom.length>=3?'최대 3개까지 추가할 수 있어요':'항목 추가';
+}
+$('#addC').onclick=()=>{
+  if(db.custom.length>=3)return;
+  db.custom.push({id:'c'+Date.now(),name:''});save();settings();
+  const f=document.querySelectorAll('#cList .field');if(f.length)f[f.length-1].focus();
+};
+$('#btnSet').onclick=()=>{settings();open('#ovSet')};
+
+render();
+})();
+</script>
+</body>
+</html>
