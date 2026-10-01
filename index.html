@@ -9,7 +9,9 @@
 <meta name="apple-mobile-web-app-title" content="영적예물">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>영적예물</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23dfe8f4'/%3E%3Cpath d='M30 8h4v48h-4zM16 22h32v4H16z' fill='%23b8934f'/%3E%3C/svg%3E">
+<!-- 홈 화면 및 브라우저 탭 아이콘 (가톨릭 십자가 반영) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23dfe8f4'/%3E%3Cpath d='M29 10h6v44h-6zM14 22h36v6H14zM26 12h12v3H26z' fill='%23b8934f'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23dfe8f4'/%3E%3Cpath d='M29 10h6v44h-6zM14 22h36v6H14zM26 12h12v3H26z' fill='%23b8934f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -82,15 +84,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--sky-d);outline-
 <body>
 <div class="app">
   <div class="top">
-    <!-- 가톨릭 고상(Crucifix) SVG 변경 적용 -->
     <div class="brand">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <rect x="10.5" y="2" width="3" height="20" rx="0.5"/>
-        <rect x="4" y="6.5" width="16" height="3" rx="0.5"/>
-        <rect x="9.5" y="3" width="5" height="1.5" rx="0.3"/>
-        <circle cx="12" cy="7.5" r="1.2"/>
-        <path d="M12 8.7 L12 14.5 L10.5 18 M12 14.5 L13.5 18" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M8 8 L16 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <rect x="4" y="7" width="16" height="3" rx="0.5"/>
+        <rect x="9.5" y="3.5" width="5" height="1.5" rx="0.3"/>
       </svg>
       영적예물
     </div>
@@ -253,7 +251,7 @@ function settings(){
   $('#addC').textContent=db.custom.length>=5?'최대 5개까지 추가할 수 있어요':'항목 추가';
 }
 $('#addC').onclick=()=>{
-  if(db.custom.length>=5)return; // 기존 3에서 5로 수정 완료
+  if(db.custom.length>=5)return;
   db.custom.push({id:'c'+Date.now(),name:''});save();settings();
   const f=document.querySelectorAll('#cList .field');if(f.length)f[f.length-1].focus();
 };
